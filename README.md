@@ -1,10 +1,18 @@
-# Node + Express Service Starter
+# 🤖 Telegram Bot – UpperTech Assistant + Quote Bot
 
-This is a simple API sample in Node.js with express.js based on [Google Cloud Run Quickstart](https://cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-nodejs-service).
+Dua bot Telegram dalam satu server Node.js (polling mode) plus halaman status web sederhana.
 
-## Getting Started
+## 📦 Fitur
 
-Server should run automatically when starting a workspace. To run manually, run:
-```sh
-npm run dev
-```
+- **UpperTech Assistant** – Bot utama untuk keperluan asisten (sesuai dengan logika di `uppertech-assistant.js`)
+- **Quote Bot** – Bot pengirim kutipan inspiratif setiap jam (dengan perintah subscribe/unsubscribe)
+- **Status Server** – Halaman web untuk melihat status bot, uptime, dan waktu saat ini
+
+## 🛠️ Teknologi
+
+- Node.js (ES modules)
+- [Telegraf](https://github.com/telegraf/telegraf) – Framework bot Telegram
+- HTTP bawaan Node.js – Untuk halaman status
+- Setiap bot berjalan dengan mode **polling** (long‑running)
+
+## 📁 Struktur Proyek

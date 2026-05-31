@@ -1,6 +1,6 @@
 {
-  "name": "node-express-api",
-  "description": "Simple api sample in Node",
+  "name": "server-bot-telegram",
+  "description": "server api bot telegram pribadi",
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
@@ -9,7 +9,7 @@
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
-  "author": "Google LLC",
+  "author": "Ridho Akbar",
   "license": "Apache-2.0",
   "dependencies": {
     "dotenv": "^17.4.2",
