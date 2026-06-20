@@ -5,9 +5,9 @@ import { readJSON, DATA_DIR } from './Uppertech-assistant/middlewares/database.j
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const app = express();
 
 export function createServer() {
-  const app = express();
 
   // File statis
   app.use(express.static(path.join(__dirname, 'public')));
@@ -39,3 +39,5 @@ export function createServer() {
 
   return app;
 }
+
+export default app;
