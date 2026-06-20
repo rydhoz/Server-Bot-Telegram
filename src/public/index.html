@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uppertech Bot Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(135deg, #0d1117, #1a1f2b);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #c9d1d9;
+    }
+    .container {
+      max-width: 600px;
+      width: 90%;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0,255,255,0.1);
+      border: 1px solid rgba(0,255,255,0.2);
+      text-align: center;
+    }
+    .status-dot {
+      width: 12px; height: 12px; background: #10b981; border-radius: 50%;
+      display: inline-block; animation: pulse 2s infinite; margin-right: 10px;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.7; }
+    }
+    h1 { font-size: 2rem; color: #00ffff; margin-bottom: 20px; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px; margin: 25px 0;
+    }
+    .stat-card {
+      background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-card h3 { font-size: 0.9rem; color: #94a3b8; margin-bottom: 5px; }
+    .stat-card p { font-size: 1.5rem; font-weight: bold; color: #00ffff; }
+    .footer { margin-top: 25px; font-size: 0.8rem; color: #64748b; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><span class="status-dot" id="status-dot"></span>Uppertech Bot</h1>
+    <div class="stats">
+      <div class="stat-card"><h3>Uptime</h3><p id="uptime">...</p></div>
+      <div class="stat-card"><h3>Total Users</h3><p id="totalUsers">...</p></div>
+      <div class="stat-card"><h3>Total Orders</h3><p id="totalOrders">...</p></div>
+      <div class="stat-card"><h3>Pending</h3><p id="pendingOrders">...</p></div>
+    </div>
+    <p>Waktu Server: <span id="serverTime">...</span></p>
+    <div class="footer">🔄 Auto-refresh setiap 1 detik</div>
+  </div>
+  <script>
+    async function refresh() {
+      try {
+        const res = await fetch('/api/status');
+        const d = await res.json();
+        document.getElementById('uptime').textContent = d.uptime + 's';
+        document.getElementById('totalUsers').textContent = d.totalUsers;
+        document.getElementById('totalOrders').textContent = d.totalOrders;
+        document.getElementById('pendingOrders').textContent = d.pendingOrders;
+        document.getElementById('serverTime').textContent = d.serverTime;
+        document.getElementById('status-dot').style.background = d.online ? '#10b981' : '#ef4444';
+      } catch (err) {
+        document.getElementById('status-dot').style.background = '#ef4444';
+      }
+    }
+    refresh();
+    setInterval(refresh, 1000);
+  </script>
+</body>
+</html>
