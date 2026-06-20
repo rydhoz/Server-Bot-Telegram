@@ -1,3 +1,15 @@
 export function setupHelp(bot) {
-  bot.help(ctx => ctx.reply(`📋 *Daftar Perintah*\n/start - Mulai\n/menu - Menu utama\n/order - Pesan\n/status - Cek status\n/quote - Kutipan\n/about - Tentang\n\n*Admin:* /listorder, /confirm <id>, /broadcast <teks>, /stats`, { parse_mode: 'Markdown' }));
+  bot.command('help', (ctx) => {
+    ctx.replyWithHTML(
+      `❓ <b>Bantuan UpperTech Bot</b>\n\n` +
+      `Daftar Command:\n` +
+      `/start - Mulai bot\n` +
+      `/menu - Tampilkan menu utama\n` +
+      `/order - Mulai pemesanan\n` +
+      `/status - Cek status bot\n` +
+      `/about - Tentang kami\n` +
+      `/cancel - Batalkan sesi\n\n` +
+      `Ada yang bisa dibantu?`
+    );
+  });
 }

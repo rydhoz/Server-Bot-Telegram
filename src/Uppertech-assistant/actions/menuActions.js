@@ -1,19 +1,31 @@
+import { clearSession } from '../middlewares/session.js';
+
 export function setupMenuActions(bot) {
-  bot.action('lihat_paket', async ctx => {
-    await ctx.answerCbQuery();
-    ctx.reply('✨ *Paket:*\n• Landing Page: Rp500k\n• Company Profile: Rp1.5jt\n• Toko Online: Rp3jt\n/order untuk pesan.', { parse_mode: 'Markdown' });
+  bot.action('main_menu', (ctx) => {
+    ctx.editMessageText('📋 Pilih menu yang diinginkan:', {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: '🛒 Buat Pesanan', callback_data: 'order_start' }],
+          [{ text: '📊 Lihat Harga', callback_data: 'pricing' }],
+          [{ text: '💼 Portofolio', callback_data: 'portfolio' }],
+          [{ text: 'ℹ️ Tentang UpperTech', callback_data: 'about' }]
+        ]
+      }
+    });
   });
-  bot.action('kontak_admin', async ctx => {
-    await ctx.answerCbQuery();
-    ctx.reply('📞 Hubungi @ridho_u');
+
+  bot.action('order_start', (ctx) => {
+    ctx.answerCbQuery();
+    ctx.reply('🛒 Silakan ketik /order untuk memulai proses pemesanan.');
   });
-  bot.action('quote_hari_ini', async ctx => {
-    await ctx.answerCbQuery();
-    const { randomQuote } = await import('../utils/quotes.js');
-    ctx.reply(randomQuote());
+
+  bot.action('portfolio', (ctx) => {
+    ctx.answerCbQuery();
+    ctx.reply('💼 Portofolio UpperTech sedang dalam pengembangan. Silakan tunggu update selanjutnya!');
   });
-  bot.action('about_bot', async ctx => {
-    await ctx.answerCbQuery();
-    ctx.reply('Bot ini dibuat oleh Uppertech.');
+
+  bot.action('pricing', (ctx) => {
+    ctx.answerCbQuery();
+    ctx.reply('📊 Daftar harga layanan akan ditampilkan di sini (sedang di-update).');
   });
 }
