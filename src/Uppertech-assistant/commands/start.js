@@ -1,15 +1,15 @@
-import { addUser } from '../middlewares/database.js';
-import { getWIBTime } from '../utils/helpers.js';
-
 export function setupStart(bot) {
-  bot.start(async (ctx) => {
-    const user = ctx.from;
-    addUser({ id: user.id, first_name: user.first_name, username: user.username || '', joined: getWIBTime() });
-    // Notifikasi admin
-    const adminId = parseInt(process.env.ADMIN_CHAT_ID);
-    if (adminId) {
-      bot.telegram.sendMessage(adminId, `👤 User baru: ${user.first_name} (@${user.username || '-'})`).catch(()=>{});
-    }
-    ctx.reply(`Halo ${user.first_name}! 👋\nSaya *Uppertech Assistant*, bot jasa website profesional.\nKetik /menu untuk mulai.`, { parse_mode: 'Markdown' });
+  bot.start((ctx) => {
+    const name = ctx.from.first_name || 'Teman';
+    ctx.replyWithHTML(
+      `👋 <b>Halo ${name}!</b>\n\n` +
+      `Selamat datang di <b>UpperTech Assistant</b> 🤖\n\n` +
+      `Saya siap membantu kamu untuk:\n` +
+      `• Melihat harga & layanan\n` +
+      `• Membuat pesanan\n` +
+      `• Informasi portofolio\n\n` +
+      `Ketik /menu untuk melihat semua fitur.`,
+      { reply_markup: { inline_keyboard: [[{ text: '📋 Buka Menu', callback_data: 'main_menu' }]] }}
+    );
   });
 }

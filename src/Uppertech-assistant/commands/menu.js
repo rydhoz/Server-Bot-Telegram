@@ -1,13 +1,14 @@
-import { Markup } from 'telegraf';
-
 export function setupMenu(bot) {
-  bot.command('menu', ctx => {
-    const keyboard = Markup.inlineKeyboard([
-      [Markup.button.callback('📦 Lihat Paket', 'lihat_paket')],
-      [Markup.button.callback('📞 Kontak Admin', 'kontak_admin')],
-      [Markup.button.callback('🎲 Quote Hari Ini', 'quote_hari_ini')],
-      [Markup.button.callback('ℹ️ Tentang Bot', 'about_bot')]
-    ]);
-    ctx.reply('🧭 *Menu Utama*', { parse_mode: 'Markdown', ...keyboard });
+  bot.command('menu', (ctx) => {
+    ctx.reply('📋 Pilih menu yang diinginkan:', {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: '🛒 Buat Pesanan', callback_data: 'order_start' }],
+          [{ text: '📊 Lihat Harga', callback_data: 'pricing' }],
+          [{ text: '💼 Portofolio', callback_data: 'portfolio' }],
+          [{ text: 'ℹ️ Tentang UpperTech', callback_data: 'about' }]
+        ]
+      }
+    });
   });
 }
