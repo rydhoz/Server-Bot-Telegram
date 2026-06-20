@@ -16,10 +16,42 @@ export function setupMenuActions(bot) {
     });
   });
 
-  // Order
+  // Order Start
   bot.action('order_start', async (ctx) => {
     await ctx.answerCbQuery('🛒 Memulai proses pemesanan...');
     await ctx.reply('Silakan ketik /order untuk memulai pemesanan.');
+  });
+
+  // === ORDER FLOW ===
+  bot.action('order_website', async (ctx) => {
+    await ctx.answerCbQuery('🌐 Website dipilih');
+    await ctx.replyWithHTML(
+      `✅ <b>Pesanan Website</b>\n\n` +
+      `Silakan jawab pertanyaan berikut:\n\n` +
+      `1. Nama proyek / website apa yang diinginkan?\n` +
+      `(contoh: Toko Online Zuppa Soup)`
+    );
+  });
+
+  bot.action('order_bot', async (ctx) => {
+    await ctx.answerCbQuery('🤖 Bot Telegram dipilih');
+    await ctx.replyWithHTML(
+      `✅ <b>Pesanan Bot Telegram</b>\n\n` +
+      `Silakan ceritakan fitur apa yang kamu inginkan untuk bot ini?`
+    );
+  });
+
+  bot.action('order_app', async (ctx) => {
+    await ctx.answerCbQuery();
+    await ctx.reply('📱 Fitur Aplikasi Mobile sedang dalam pengembangan. Silakan pilih yang lain atau hubungi admin.');
+  });
+
+  bot.action('order_custom', async (ctx) => {
+    await ctx.answerCbQuery();
+    await ctx.replyWithHTML(
+      `🔧 <b>Custom Project</b>\n\n` +
+      `Silakan jelaskan kebutuhan proyek kamu secara detail. Kami akan hubungi secepatnya.`
+    );
   });
 
   // Pricing
